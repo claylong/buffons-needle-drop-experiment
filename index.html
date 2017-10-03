@@ -1,0 +1,42 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+<script src="index.js"></script>
+</head>
+<body>
+<div style="margin: 10px" ng-app="buffons-needle">
+  <div ng-controller="BuffonsNeedlesim as sim">
+    <h1>Buffon's Needle Drop Simulation</h1>
+    <form>
+      <div class="form-group">
+        <input ng-model="sim.numLines" size="2" placeholder="Lines" required type="number" min="1" max="25">
+        <button ng-click="sim.setLines()" class="btn btn-default">Set Lines</button>
+      </div>
+    </form>
+    <form>
+      <div class="form-group">
+        <input ng-model="sim.needleLengthRatio" size="2" placeholder="Needle Length Ratio" required type="number" min=".01" max="1" step=".01">
+        <input ng-model="sim.iterations" size="2" placeholder="Lines" required type="number" min="1" max="10000">
+        <input ng-model="sim.delay" size="2" placeholder="Delay (ms)" required type="number" min="1" max="500">
+        <button ng-click="sim.runSim()" ng-show="!sim.running" class="btn btn-primary">Run Sim</button>
+        <button ng-click="sim.cancelSim()" ng-show="sim.running" class="btn btn-danger">Cancel Sim</button>
+      </div>
+
+    </form>
+    <canvas id="canvas" style="border: 1px gray solid; float: left;"></canvas>
+    <div id="list" style="float: right;" class="h4">
+      Data
+      <br/> Drops: {{sim.needles.length}}
+      <br/> Intersections: {{sim.intersections}}
+    </div>
+    <div style="clear: both" />
+  </div>
+  <div>
+     <h2>
+     Pi ~ {{(2 * sim.gap * sim.needleLengthRatio * sim.needles.length) / (sim.gap * sim.intersections)}}
+     </h2>
+  </div>
+</div>
+</body>
+</html>
